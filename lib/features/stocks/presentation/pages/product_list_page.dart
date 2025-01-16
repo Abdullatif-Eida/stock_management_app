@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stock_management/core/constants/app_constants.dart';
 import 'package:stock_management/features/stocks/presentation/pages/add_product.dart';
 import 'package:stock_management/features/stocks/presentation/states/product_state.dart';
 import 'package:stock_management/features/stocks/presentation/widgets/product_filter.dart';
@@ -46,7 +47,7 @@ class ProductListPage extends ConsumerWidget {
                 ProductFilter.all => true,
                 ProductFilter.inStock => p.stock > 0,
                 ProductFilter.outOfStock => p.stock == 0,
-                ProductFilter.lowStock => p.stock > 0 && p.stock < 5,
+                ProductFilter.lowStock => p.stock > 0 && p.stock < AppConstants.lowStockThreshold,
               };
 
               bool matchesPriceFilter = switch (state.priceFilter) {

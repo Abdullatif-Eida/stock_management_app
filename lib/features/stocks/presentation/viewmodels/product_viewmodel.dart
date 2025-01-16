@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stock_management/core/constants/app_constants.dart';
 import 'package:stock_management/features/stocks/domain/models/product.dart';
 import 'package:stock_management/features/stocks/domain/repositories/product_repository.dart';
 import 'package:stock_management/features/stocks/presentation/states/product_state.dart';
@@ -67,16 +66,5 @@ class ProductViewModel extends StateNotifier<ProductState> {
   void filterByPrice(PriceFilter priceFilter) {
     state = state.copyWith(priceFilter: priceFilter);
   }
-
-  List<Product> get filteredProducts {
-    return switch (state.filter) {
-      ProductFilter.all => state.products,
-      ProductFilter.inStock => 
-        state.products.where((p) => p.stock > AppConstants.lowStockThreshold).toList(),
-      ProductFilter.lowStock => 
-        state.products.where((p) => p.stock <= AppConstants.lowStockThreshold && p.stock > 0).toList(),
-      ProductFilter.outOfStock => 
-        state.products.where((p) => p.stock == 0).toList(),
-    };
-  }
+  
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_management/core/constants/app_constants.dart';
 
 class StockStatusIndicator extends StatelessWidget {
   final int stock;
@@ -18,7 +19,7 @@ class StockStatusIndicator extends StatelessWidget {
       backgroundColor = Colors.red.shade100;
       textColor = Colors.red.shade900;
       text = 'Out of Stock';
-    } else if (stock < 5) {
+    } else if (stock < AppConstants.lowStockThreshold) {
       backgroundColor = Colors.orange.shade100;
       textColor = Colors.orange.shade900;
       text = 'Low Stock';

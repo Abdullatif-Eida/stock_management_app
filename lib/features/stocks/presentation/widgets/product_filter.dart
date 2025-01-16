@@ -11,7 +11,6 @@ class ProductFilterWidget extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Stock Filter
         PopupMenuButton<ProductFilter>(
           icon: const Icon(Icons.filter_list),
           tooltip: 'Filter by stock',
@@ -37,7 +36,6 @@ class ProductFilterWidget extends ConsumerWidget {
             ),
           ],
         ),
-        // Price Filter
         PopupMenuButton<PriceFilter>(
           icon: const Icon(Icons.attach_money),
           tooltip: 'Filter by price',
