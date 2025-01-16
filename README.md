@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+To run the product please use Flutter version 3.24.1
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
