@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ProductState {
   List<Product> get products => throw _privateConstructorUsedError;
   ProductFilter get filter => throw _privateConstructorUsedError;
+  PriceFilter get priceFilter => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -37,6 +38,7 @@ abstract class $ProductStateCopyWith<$Res> {
   $Res call(
       {List<Product> products,
       ProductFilter filter,
+      PriceFilter priceFilter,
       bool isLoading,
       String? error});
 }
@@ -58,6 +60,7 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
   $Res call({
     Object? products = null,
     Object? filter = null,
+    Object? priceFilter = null,
     Object? isLoading = null,
     Object? error = freezed,
   }) {
@@ -70,6 +73,10 @@ class _$ProductStateCopyWithImpl<$Res, $Val extends ProductState>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as ProductFilter,
+      priceFilter: null == priceFilter
+          ? _value.priceFilter
+          : priceFilter // ignore: cast_nullable_to_non_nullable
+              as PriceFilter,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -93,6 +100,7 @@ abstract class _$$ProductStateImplCopyWith<$Res>
   $Res call(
       {List<Product> products,
       ProductFilter filter,
+      PriceFilter priceFilter,
       bool isLoading,
       String? error});
 }
@@ -112,6 +120,7 @@ class __$$ProductStateImplCopyWithImpl<$Res>
   $Res call({
     Object? products = null,
     Object? filter = null,
+    Object? priceFilter = null,
     Object? isLoading = null,
     Object? error = freezed,
   }) {
@@ -124,6 +133,10 @@ class __$$ProductStateImplCopyWithImpl<$Res>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as ProductFilter,
+      priceFilter: null == priceFilter
+          ? _value.priceFilter
+          : priceFilter // ignore: cast_nullable_to_non_nullable
+              as PriceFilter,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -142,6 +155,7 @@ class _$ProductStateImpl implements _ProductState {
   const _$ProductStateImpl(
       {final List<Product> products = const [],
       this.filter = ProductFilter.all,
+      this.priceFilter = PriceFilter.all,
       this.isLoading = false,
       this.error})
       : _products = products;
@@ -160,13 +174,16 @@ class _$ProductStateImpl implements _ProductState {
   final ProductFilter filter;
   @override
   @JsonKey()
+  final PriceFilter priceFilter;
+  @override
+  @JsonKey()
   final bool isLoading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'ProductState(products: $products, filter: $filter, isLoading: $isLoading, error: $error)';
+    return 'ProductState(products: $products, filter: $filter, priceFilter: $priceFilter, isLoading: $isLoading, error: $error)';
   }
 
   @override
@@ -176,14 +193,21 @@ class _$ProductStateImpl implements _ProductState {
             other is _$ProductStateImpl &&
             const DeepCollectionEquality().equals(other._products, _products) &&
             (identical(other.filter, filter) || other.filter == filter) &&
+            (identical(other.priceFilter, priceFilter) ||
+                other.priceFilter == priceFilter) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_products), filter, isLoading, error);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_products),
+      filter,
+      priceFilter,
+      isLoading,
+      error);
 
   /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -198,6 +222,7 @@ abstract class _ProductState implements ProductState {
   const factory _ProductState(
       {final List<Product> products,
       final ProductFilter filter,
+      final PriceFilter priceFilter,
       final bool isLoading,
       final String? error}) = _$ProductStateImpl;
 
@@ -205,6 +230,8 @@ abstract class _ProductState implements ProductState {
   List<Product> get products;
   @override
   ProductFilter get filter;
+  @override
+  PriceFilter get priceFilter;
   @override
   bool get isLoading;
   @override

@@ -40,18 +40,34 @@ class ProductListPage extends ConsumerWidget {
 
       final filteredProducts = ref.watch(
         productViewModelProvider.select(
-          (state) => state.products.where((p) {
-            switch (state.filter) {
-              case ProductFilter.all:
-                return true;
-              case ProductFilter.inStock:
-                return p.stock > 0;
-              case ProductFilter.outOfStock:
-                return p.stock == 0;
-              case ProductFilter.lowStock:
-                return p.stock < 5;
+          (state) {
+            var filtered = state.products.where((p) {
+              bool matchesStockFilter = switch (state.filter) {
+                ProductFilter.all => true,
+                ProductFilter.inStock => p.stock > 0,
+                ProductFilter.outOfStock => p.stock == 0,
+                ProductFilter.lowStock => p.stock > 0 && p.stock < 5,
+              };
+
+              bool matchesPriceFilter = switch (state.priceFilter) {
+                PriceFilter.all => true,
+                PriceFilter.under50 => p.price < 50,
+                PriceFilter.under100 => p.price < 100,
+                PriceFilter.over100 => p.price >= 100,
+                _ => true,
+              };
+
+              return matchesStockFilter && matchesPriceFilter;
+            }).toList();
+
+            if (state.priceFilter == PriceFilter.lowToHigh) {
+              filtered.sort((a, b) => a.price.compareTo(b.price));
+            } else if (state.priceFilter == PriceFilter.highToLow) {
+              filtered.sort((a, b) => b.price.compareTo(a.price));
             }
-          }).toList(),
+
+            return filtered;
+          },
         ),
       );
 
@@ -99,9 +115,8 @@ class ProductListPage extends ConsumerWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Delete Product'),
-                  content: Text(
-                    'Are you sure you want to delete ${product.name}?'
-                  ),
+                  content:
+                      Text('Are you sure you want to delete ${product.name}?'),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context, false),
@@ -116,16 +131,18 @@ class ProductListPage extends ConsumerWidget {
               );
             },
             onDismissed: (direction) {
-              ref.read(productViewModelProvider.notifier)
-                .deleteProduct(product);
+              ref
+                  .read(productViewModelProvider.notifier)
+                  .deleteProduct(product);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('${product.name} deleted'),
                   action: SnackBarAction(
                     label: 'Undo',
                     onPressed: () {
-                      ref.read(productViewModelProvider.notifier)
-                        .addProduct(product);
+                      ref
+                          .read(productViewModelProvider.notifier)
+                          .addProduct(product);
                     },
                   ),
                 ),

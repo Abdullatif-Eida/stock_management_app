@@ -64,6 +64,10 @@ class ProductViewModel extends StateNotifier<ProductState> {
     state = state.copyWith(filter: filter);
   }
 
+  void filterByPrice(PriceFilter priceFilter) {
+    state = state.copyWith(priceFilter: priceFilter);
+  }
+
   List<Product> get filteredProducts {
     return switch (state.filter) {
       ProductFilter.all => state.products,
